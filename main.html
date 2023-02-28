@@ -8,80 +8,93 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- INITIAL LAYOUT -->
-    <h1>Registreer</h1>
-    <p>Meld je aan bij Anoroc Services, wij beschermen jouw  software tegen malware!</p>
-    <form action="#">
-        <div class="">
-            <label for="firstname">Voornaam</label>
-            <input type="text" name="firstname" id="firstname" placeholder="Uw voornaam" class="form-control rounded-top">
+    <div class="container row">
+        <div class="col"></div>
+        <div class="col-6">
+            <h1>Registreer</h1>
+            <p>Meld je aan bij Anoroc Services, wij beschermen jouw  software tegen malware!</p>
+            <form action="#">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="firstname">Voornaam</label>
+                        <input type="text" name="firstname" id="firstname" placeholder="Uw voornaam" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="lastname">Naam</label>
+                        <input type="text" name="lastname" id="lastname" placeholder="Uw naam" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="username">Gebruikersnaam</label>
+                        <input type="text" name="username" id="username" placeholder="Gebruikersnaam" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="email">E-mailadres</label>
+                        <input type="email" name="email" id="email" placeholder="mail@example.com" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="password">Wachtwoord</label>
+                        <input type="password" name="password" id="password" placeholder="" class="form-control" aria-describedby="passwordHelp">
+                        <div id="passwordHelp" class="form-text">Je wachtwoord moet minstens 8 tekens lang zijn.</div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="passwordvalidate">Herhaal wachtwoord</label>
+                        <input type="password" name="passwordvalidate" id="passwordvalidate" placeholder="" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="address">Adres</label>
+                        <input type="text" name="address" id="address" placeholder="Uw adres en huisnummer" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="country">Land</label>
+                        <input type="text" name="country" id="country" placeholder="Kies een land" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="province">Provincie</label>
+                        <input type="text" name="province" id="province" placeholder="Kies een provincie" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="postalcode">Postcode</label>
+                        <input type="text" name="postalcode" id="postalcode" placeholder="" class="form-control">
+                    </div>
+                </div>
+                <hr>
+                <div class="">
+                    <h2>Hou me op de hoogte</h2>
+                    <input type="checkbox" name="newsletter" id="newsletter">
+                    <label class="form-label" for="newsletter">Inschrijven voor onze nieuwsbrief</label>
+                    <input type="checkbox" name="agree" id="agree">
+                    <label class="form-label" for="agree">Ik ga akkoord met de algemene voorwaarden</label>
+                </div>
+                <div class="">
+                    <h2>Betaling</h2>
+                    <input type="radio" name="payment" id="bankingapp" value="bankingapp">
+                    <label class="form-label" for="bankingapp">Banking App</label>
+                    <input type="radio" name="payment" id="wire" value="wire">
+                    <label class="form-label" for="wire">Overschijving</label>
+                    <input type="radio" name="payment" id="visa" value="visa">
+                    <label class="form-label" for="visa">VISA card</label>
+                    <input type="radio" name="payment" id="paypal" value="paypal">
+                    <label class="form-label" for="paypal">PayPal</label>
+                </div>
+                <hr>
+                <button type="button" class="btn btn-primary">Wave your magic wand</button>
+            </form>
         </div>
-        <div class="">
-            <label for="lastname">Naam</label>
-            <input type="text" name="lastname" id="lastname" placeholder="Uw naam" class="form-control rounded-top">
+        <div class="col-3 m-3">
+            <div class="alert alert-success">
+                <h4>Goed gedaan!</h4>
+                <p>Aww yeah, je werd geregistreerd.</p>
+            </div>
         </div>
-        <div class="">
-            <label for="username">Gebruikersnaam</label>
-            <input type="text" name="username" id="username" placeholder="Gebruikersnaam" class="form-control rounded-top">
-        </div>
-        <div class="">
-            <label for="email">E-mailadres</label>
-            <input type="email" name="email" id="email" placeholder="mail@example.com" class="form-control rounded-top">
-        </div>
-        <div class="">
-            <label for="password">Wachtwoord</label>
-            <input type="password" name="password" id="password" placeholder="" class="form-control rounded-top">
-        </div>
-        <div class="">
-            <label for="passwordvalidate">Herhaal wachtwoord</label>
-            <input type="password" name="passwordvalidate" id="passwordvalidate" placeholder="" class="form-control rounded-top">
-        </div>
-        <div class="">
-            <label for="address">Adres</label>
-            <input type="text" name="address" id="address" placeholder="Uw adres en huisnummer" class="form-control rounded-top">
-        </div>
-        <div class="">
-            <label for="country">Land</label>
-            <input type="text" name="country" id="country" placeholder="Kies een land" class="form-control rounded-top">
-        </div>
-        <div class="">
-            <label for="province">Provincie</label>
-            <input type="text" name="province" id="province" placeholder="Kies een provincie" class="form-control rounded-top">
-        </div>
-        <div class="">
-            <label for="postalcode">Postcode</label>
-            <input type="text" name="postalcode" id="postalcode" placeholder="" class="form-control rounded-top">
-        </div>
-        <hr>
-        <div class="">
-            <h2>Hou me op de hoogte</h2>
-            <input type="checkbox" name="newsletter" id="newsletter">
-            <label for="newsletter">Inschrijven voor onze nieuwsbrief</label>
-            <input type="checkbox" name="agree" id="agree">
-            <label for="agree">Ik ga akkoord met de algemene voorwaarden</label>
-        </div>
-        <div class="">
-            <h2>Betaling</h2>
-            <input type="radio" name="payment" id="bankingapp" value="bankingapp">
-            <label for="bankingapp">Banking App</label>
-            <input type="radio" name="payment" id="wire" value="wire">
-            <label for="wire">Overschijving</label>
-            <input type="radio" name="payment" id="visa" value="visa">
-            <label for="visa">VISA card</label>
-            <input type="radio" name="payment" id="paypal" value="paypal">
-            <label for="paypal">PayPal</label>
-        </div>
-        <hr>
-        <button type="button" class="btn btn-primary">Wave your magic wand</button>
-    </form>
-
-
-
-
-
-
-
-
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
