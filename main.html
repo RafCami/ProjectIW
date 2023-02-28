@@ -10,7 +10,7 @@
 <body>
     <div class="container row">
         <div class="col-md"></div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-3">
             <h1>Registreer</h1>
             <p>Meld je aan bij Anoroc Services, wij beschermen jouw  software tegen malware!</p>
             <form action="#">
@@ -66,29 +66,45 @@
                     </div>
                 </div>
                 <hr>
-                <div class="">
-                    <h2>Hou me op de hoogte</h2>
-                    <input type="checkbox" name="newsletter" id="newsletter">
-                    <label class="form-label" for="newsletter">Inschrijven voor onze nieuwsbrief</label>
-                    <input type="checkbox" name="agree" id="agree">
-                    <label class="form-label" for="agree">Ik ga akkoord met de algemene voorwaarden</label>
-                </div>
-                <div class="">
-                    <h2>Betaling</h2>
-                    <input type="radio" name="payment" id="bankingapp" value="bankingapp">
-                    <label class="form-label" for="bankingapp">Banking App</label>
-                    <input type="radio" name="payment" id="wire" value="wire">
-                    <label class="form-label" for="wire">Overschijving</label>
-                    <input type="radio" name="payment" id="visa" value="visa">
-                    <label class="form-label" for="visa">VISA card</label>
-                    <input type="radio" name="payment" id="paypal" value="paypal">
-                    <label class="form-label" for="paypal">PayPal</label>
+                <div class="row mb-3">
+                    <div class="col">
+                        <h4>Hou me op de hoogte</h4>
+                        <div class="form-check">
+                            <input type="checkbox" name="newsletter" id="newsletter" class="form-check-input">
+                            <label class="form-check-label" for="newsletter">Inschrijven voor onze nieuwsbrief</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="agree" id="agree" class="form-check-input">
+                            <label class="form-check-label" for="agree">Ik ga akkoord met de algemene voorwaarden</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4>Betaling</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="bankingapp" value="bankingapp">
+                            <label class="form-check-label" for="bankingapp">Banking App</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="wire" value="wire">
+                            <label class="form-check-label" for="wire">Overschijving</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="visa" value="visa">
+                            <label class="form-check-label" for="visa">VISA card</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="paypal" value="paypal">
+                            <label class="form-check-label" for="paypal">PayPal</label>
+                        </div>
+                    </div>
                 </div>
                 <hr>
-                <button type="button" class="btn btn-primary">Wave your magic wand</button>
+                <div class="d-grid">
+                    <button type="button" class="btn btn-primary">Wave your magic wand</button>
+                </div>
             </form>
         </div>
-        <div class="col-md-3 m-3">
+        <div class="col-md mt-3">
             <div class="alert alert-success">
                 <h4>Goed gedaan!</h4>
                 <p>Aww yeah, je werd geregistreerd.</p>
