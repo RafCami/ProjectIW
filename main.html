@@ -143,6 +143,9 @@
                     case 'province':
                         emptyMessage = 'Het veld provincie is vereist';
                         break;
+                    case 'email':
+                        if (!validateEmail(pair[1])) errors.push('E-mailaders is niet correct');
+                        break;
                 }
                 // console.log(pair);
                 // console.log(emptyMessage);
@@ -178,12 +181,15 @@
             classes.forEach(c => response.classList.add(c)); //Add every class
             response.innerHTML = content; //Set content
         }
+
         function checkEmptyField(field, message) {
             if (field == '') return message;
             else return '';
         }
+
         function validateEmail(email) {
-            
+            const reg = /.+@.+\..+/; //email must contain any number of characters, an '@', any number of characters, a '.', any number of characters 
+            return email.match(reg); //return if email matches
         }
         
     </script>
