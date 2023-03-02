@@ -105,7 +105,7 @@
             </form>
         </div>
         <div class="col-md mt-3">
-            <div class="alert alert-success invisible">
+            <div id="response" class="alert alert-success invisible">
                 <h4>Goed gedaan!</h4>
                 <p>Aww yeah, je werd geregistreerd.</p>
             </div>
@@ -117,11 +117,73 @@
             //Get form data and create FormData object for easy data access;
             //https://developer.mozilla.org/en-US/docs/Web/API/FormData
             let formData = new FormData(document.getElementById('MyForm'));
+            let errors = [];
 
             //iterate over form entries
             for (var pair of formData) {
-                console.log(pair[0] + ': ' + pair[1]);
+                let emptyMessage = '';
+
+                //check which field gets checked
+                switch (pair[0]) {
+                    case 'firstname':
+                        emptyMessage = 'Het veld voornaam is vereist';
+                        break;
+                    case 'lastname':
+                        emptyMessage = 'Het veld achternaam is vereist';
+                        break;
+                    case 'username':
+                        emptyMessage = 'Het veld gebruikersnaam is vereist';
+                        break;
+                    case 'address':
+                        emptyMessage = 'Het veld adres is vereist';
+                        break;
+                    case 'country':
+                        emptyMessage = 'Het veld land is vereist';
+                        break;
+                    case 'province':
+                        emptyMessage = 'Het veld provincie is vereist';
+                        break;
+                }
+                // console.log(pair);
+                // console.log(emptyMessage);
+                let checkResult = '';
+                //check if empty field
+                if (emptyMessage != '') { checkResult = checkEmptyField(pair[1], emptyMessage); }
+                if (checkResult != '') 
+                {
+                    errors.push(checkResult);
+                    checkResult = '';
+                }
+
+    
             }
+            //construct alert div
+            let content = '';
+            let classes = ['alert'];
+            if (errors.length > 0) {
+                //alert content on errors
+                content += '<h4>Yikes errors...</h4><p>';
+                errors.forEach(e => content += `${e}<br>`);                
+                content += '</p>';
+                //alert classes on errors
+                classes.push('alert-danger');
+            } else {
+                content += '<h4>Goed gedaan!</h4><p>';
+                content += 'Aww yeah, je werd geregistreerd.</p>';
+                classes.push('alert-success');
+            }
+            //set alert div classes and content
+            let response = document.getElementById('response');
+            response.className = ''; //Clear classes
+            classes.forEach(c => response.classList.add(c)); //Add every class
+            response.innerHTML = content; //Set content
+        }
+        function checkEmptyField(field, message) {
+            if (field == '') return message;
+            else return '';
+        }
+        function validateEmail(email) {
+            
         }
         
     </script>
