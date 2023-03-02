@@ -122,7 +122,6 @@
             //iterate over form entries
             for (var pair of formData) {
                 let emptyMessage = '';
-
                 //check which field gets checked
                 switch (pair[0]) {
                     case 'firstname':
@@ -145,6 +144,13 @@
                         break;
                     case 'email':
                         if (!validateEmail(pair[1])) errors.push('E-mailaders is niet correct');
+                        break;
+                    case 'password':
+                        if (pair[1].length == 0) emptyMessage = 'Het veld wachtwoord is vereist'; //check for empty password
+                        else if (pair[1].length <= 7) errors.push('Het wachtwoord moet minstens 7 karakters lang zijn'); //check for too short password
+                        else {
+                            if (pair[1] != formData.get('passwordvalidate')) errors.push('Beide wachtwoord velden moeten gelijk zijn'); //password fields not equal
+                        }
                         break;
                 }
                 // console.log(pair);
