@@ -128,7 +128,7 @@
                         emptyMessage = 'Het veld voornaam is vereist';
                         break;
                     case 'lastname':
-                        emptyMessage = 'Het veld achternaam is vereist';
+                        emptyMessage = 'Het veld naam is vereist';
                         break;
                     case 'username':
                         emptyMessage = 'Het veld gebruikersnaam is vereist';
@@ -143,26 +143,24 @@
                         emptyMessage = 'Het veld provincie is vereist';
                         break;
                     case 'email':
-                        if (!validateEmail(pair[1])) errors.push('E-mailaders is niet correct');
+                        if (pair[1].length > 0) {
+                            if (!validateEmail(pair[1])) errors.push('E-mailaders is niet correct');
+                        } else emptyMessage = 'Het veld e-mail is vereist';
                         break;
                     case 'password':
                         if (pair[1].length == 0) emptyMessage = 'Het veld wachtwoord is vereist'; //check for empty password
-                        else if (pair[1].length <= 7) errors.push('Het wachtwoord moet minstens 7 karakters lang zijn'); //check for too short password
-                        else {
-                            if (pair[1] != formData.get('passwordvalidate')) errors.push('Beide wachtwoord velden moeten gelijk zijn'); //password fields not equal
-                        }
+                        else if (pair[1].length <= 7) errors.push('Het wachtwoord moet minstens 8 karakters lang zijn'); //check for too short password
+                        break;
+                    case 'passwordvalidate':
+                        if (pair[1].length == 0) emptyMessage = 'Het veld herhaal wachtwoord is vereist'; //check for empty password validation
+                        else if (formData.get('password').length >= 8 && pair[1] != formData.get('password')) errors.push('Beide wachtwoord velden moeten gelijk zijn'); //password is long enough AND fields not equal
                         break;
                 }
-                // console.log(pair);
-                // console.log(emptyMessage);
+                
                 let checkResult = '';
                 //check if empty field
-                if (emptyMessage != '') { checkResult = checkEmptyField(pair[1], emptyMessage); }
-                if (checkResult != '') 
-                {
-                    errors.push(checkResult);
-                    checkResult = '';
-                }
+                if (emptyMessage != '') checkResult = checkEmptyField(pair[1], emptyMessage); 
+                if (checkResult != '') errors.push(checkResult);
 
     
             }
