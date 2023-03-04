@@ -144,7 +144,11 @@
                         emptyMessage = 'Het veld provincie is vereist';
                         break;
                     case 'postalcode':
-                        emptyMessage = 'Het veld postcode is vereist';
+                        if (pair[1]) { 
+                            let pcError = checkPC(pair[1]); 
+                            if (pcError) errors.push(pcError);
+                        }
+                        else emptyMessage = 'Het veld postcode is vereist';
                         break;
                     case 'email':
                         if (pair[1].length > 0) {
@@ -224,6 +228,12 @@
             }
             //set payment div content
             document.getElementById('responsePayment').getElementsByTagName('p')[0].innerHTML = alertText;
+        }
+
+        function checkPC(postalcode) {
+            //check if postalcode is valid
+            const reg = /^[1-9][0-9]{3}$/; //postal code regex
+            if (!postalcode.match(reg)) return 'De waarde van postcode moet tussen 1000 en 9999 liggen';
         }
         
     </script>
