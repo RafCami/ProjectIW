@@ -13,7 +13,7 @@
         <div class="col-md-6 mt-3">
             <h1>Registreer</h1>
             <p>Meld je aan bij Anoroc Services, wij beschermen jouw  software tegen malware!</p>
-            <form action="#" id="MyForm">
+            <form action="#" id="RegisterForm">
                 <div class="row mb-3">
                     <div class="col">
                         <label class="form-label" for="firstname">Voornaam</label>
@@ -114,13 +114,13 @@
 
     <script>
         function Buttonclick() {
-            //Get form data and create FormData object for easy data access;
+            //Get form data and create FormData (dictionary) object for easy data access;
             //https://developer.mozilla.org/en-US/docs/Web/API/FormData
-            let formData = new FormData(document.getElementById('MyForm'));
+            let registerForm = new FormData(document.getElementById('RegisterForm'));
             let errors = [];
 
             //iterate over form entries
-            for (var pair of formData) {
+            for (var pair of registerForm) {
                 let emptyMessage = '';
                 //check which field gets checked
                 switch (pair[0]) {
@@ -142,9 +142,12 @@
                     case 'province':
                         emptyMessage = 'Het veld provincie is vereist';
                         break;
+                    case 'postalcode':
+                        emptyMessage = 'Het veld postcode is vereist';
+                        break;
                     case 'email':
                         if (pair[1].length > 0) {
-                            if (!validateEmail(pair[1])) errors.push('E-mailaders is niet correct');
+                            if (!validateEmail(pair[1])) errors.push('E-mailadres is niet correct');
                         } else emptyMessage = 'Het veld e-mail is vereist';
                         break;
                     case 'password':
@@ -153,7 +156,7 @@
                         break;
                     case 'passwordvalidate':
                         if (pair[1].length == 0) emptyMessage = 'Het veld herhaal wachtwoord is vereist'; //check for empty password validation
-                        else if (formData.get('password').length >= 8 && pair[1] != formData.get('password')) errors.push('Beide wachtwoord velden moeten gelijk zijn'); //password is long enough AND fields not equal
+                        else if (registerForm.get('password').length >= 8 && pair[1] != registerForm.get('password')) errors.push('Beide wachtwoord velden moeten gelijk zijn'); //password is long enough AND fields not equal
                         break;
                 }
                 
@@ -161,9 +164,17 @@
                 //check if empty field
                 if (emptyMessage != '') checkResult = checkEmptyField(pair[1], emptyMessage); 
                 if (checkResult != '') errors.push(checkResult);
-
-    
             }
+
+            //handle checkboxes
+            //if checked set value to 1 else 0
+            registerForm.set('newsletter', registerForm.has('newsletter') ? 1 : 0);
+            registerForm.set('agree', registerForm.has('agree') ? 1 : 0);
+            if (registerForm.get('agree') == '0') errors.push('Je moet de algemene voorwaarden accepteren'); //check if agreements are accepted
+            
+            //handle radio buttons
+
+
             //construct alert div
             let content = '';
             let classes = ['alert'];
