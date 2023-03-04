@@ -2,7 +2,8 @@
 JavaScript Project Interactieve Websites
 
 Q's:
-    - What to do when newsletter is checked?
-    -empty field error message consistency?
+    -What to do when newsletter is checked?
+    -Empty field error message consistency?
         'veld X is vereist' / 'X is vereist'
-    parameter 'Veld' => document.getElementById('X') || document.getElementById('X').value || FormData.get('X')
+    -Parameter 'Veld' => document.getElementById('X') || document.getElementById('X').value || FormData.get('X')
+    -What if no payment method is selected?

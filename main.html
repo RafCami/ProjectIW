@@ -81,19 +81,19 @@
                     <div class="col">
                         <h4>Betaling</h4>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment" id="bankingapp" value="bankingapp">
+                            <input class="form-check-input" type="radio" name="payment" id="bankingapp" value="Banking app">
                             <label class="form-check-label" for="bankingapp">Banking App</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment" id="wire" value="wire">
+                            <input class="form-check-input" type="radio" name="payment" id="wire" value="Overschijving">
                             <label class="form-check-label" for="wire">Overschijving</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment" id="visa" value="visa">
+                            <input class="form-check-input" type="radio" name="payment" id="visa" value="Visa">
                             <label class="form-check-label" for="visa">VISA card</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment" id="paypal" value="paypal">
+                            <input class="form-check-input" type="radio" name="payment" id="paypal" value="PayPal">
                             <label class="form-check-label" for="paypal">PayPal</label>
                         </div>
                     </div>
@@ -105,9 +105,10 @@
             </form>
         </div>
         <div class="col-md mt-3">
-            <div id="response" class="alert alert-success invisible">
-                <h4>Goed gedaan!</h4>
-                <p>Aww yeah, je werd geregistreerd.</p>
+            <div id="response" class="invisible"></div>
+            <div id="responsePayment" class="alert alert-primary invisible">
+                <h4>Betalingswijze</h4>
+                <p></p>
             </div>
         </div>
     </div>
@@ -171,9 +172,11 @@
             registerForm.set('newsletter', registerForm.has('newsletter') ? 1 : 0);
             registerForm.set('agree', registerForm.has('agree') ? 1 : 0);
             if (registerForm.get('agree') == '0') errors.push('Je moet de algemene voorwaarden accepteren'); //check if agreements are accepted
-            
-            //handle radio buttons
 
+            //handle radio buttons
+            //check if payment method is chosen
+            if (registerForm.get('payment'))  validatePayment(registerForm.get('payment')); //set payment div
+            else errors.push('Je moet een betalingswijze kiezen');
 
             //construct alert div
             let content = '';
@@ -185,10 +188,12 @@
                 content += '</p>';
                 //alert classes on errors
                 classes.push('alert-danger');
+                document.getElementById('responsePayment').classList.add('invisible'); //hide payment div
             } else {
                 content += '<h4>Goed gedaan!</h4><p>';
                 content += 'Aww yeah, je werd geregistreerd.</p>';
                 classes.push('alert-success');
+                document.getElementById('responsePayment').classList.remove('invisible'); //show payment div
             }
             //set alert div classes and content
             let response = document.getElementById('response');
@@ -206,6 +211,19 @@
             const reg = /^[a-zA-Z0-9_][a-zA-Z0-9_\-\.]*@[a-zA-Z0-9][a-zA-Z0-9\-\.]*\.[a-zA-Z0-9\-\.]+/; //email regex
             //const reg = /.+@.+\..+/; //email must contain any number of characters, an '@', any number of characters, a '.', any number of characters 
             return email.match(reg); //return if email matches
+        }
+
+        function validatePayment(payment) {
+            //construct alert text
+            let alertText;
+            if (payment) {
+                alertText = `Je betalingswijze is ${payment}`;
+            }
+            else {
+                alertText = 'Je hebt geen betalingswijze gekozen';
+            }
+            //set payment div content
+            document.getElementById('responsePayment').getElementsByTagName('p')[0].innerHTML = alertText;
         }
         
     </script>
