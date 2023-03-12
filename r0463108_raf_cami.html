@@ -341,7 +341,7 @@
                     <div class="col">
                         <h4>Betaling</h4>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment" id="bankingapp" value="Banking app">
+                            <input class="form-check-input" type="radio" name="payment" id="bankingapp" value="Banking app" checked>
                             <label class="form-check-label" for="bankingapp">Banking App</label>
                         </div>
                         <div class="form-check">
@@ -386,41 +386,42 @@
                 //check which field gets checked
                 switch (pair[0]) {
                     case 'firstname':
-                        emptyMessage = 'Het veld voornaam is vereist';
+                        emptyMessage = 'voornaam';
                         break;
                     case 'lastname':
-                        emptyMessage = 'Het veld naam is vereist';
+                        emptyMessage = 'naam';
                         break;
                     case 'username':
-                        emptyMessage = 'Het veld gebruikersnaam is vereist';
+                        emptyMessage = 'gebruikersnaam';
                         break;
                     case 'address':
-                        emptyMessage = 'Het veld adres is vereist';
+                        emptyMessage = 'adres';
                         break;
                     case 'country':
-                        emptyMessage = 'Het veld land is vereist';
+                        emptyMessage = 'land';
                         break;
                     case 'province':
-                        emptyMessage = 'Het veld provincie is vereist';
+                        emptyMessage = 'provincie';
                         break;
                     case 'postalcode':
+                        console.log(pair[1]);
                         if (pair[1]) { 
                             let pcError = checkPC(pair[1]); 
                             if (pcError) errors.push(pcError);
                         }
-                        else emptyMessage = 'Het veld postcode is vereist';
+                        else emptyMessage = 'postcode';
                         break;
                     case 'email':
                         if (pair[1].length > 0) {
                             if (!validateEmail(pair[1])) errors.push('E-mailadres is niet correct');
-                        } else emptyMessage = 'Het veld e-mail is vereist';
+                        } else emptyMessage = 'e-mail';
                         break;
                     case 'password':
-                        if (pair[1].length == 0) emptyMessage = 'Het veld wachtwoord is vereist'; //check for empty password
+                        if (pair[1].length == 0) emptyMessage = 'wachtwoord'; //check for empty password
                         else if (pair[1].length <= 7) errors.push('Het wachtwoord moet minstens 8 karakters lang zijn'); //check for too short password
                         break;
                     case 'passwordvalidate':
-                        if (pair[1].length == 0) emptyMessage = 'Het veld herhaal wachtwoord is vereist'; //check for empty password validation
+                        if (pair[1].length == 0) emptyMessage = 'herhaal wachtwoord'; //check for empty password validation
                         else if (registerForm.get('password').length >= 8 && pair[1] != registerForm.get('password')) errors.push('Beide wachtwoord velden moeten gelijk zijn'); //password is long enough AND fields not equal
                         break;
                 }
@@ -467,7 +468,7 @@
         }
 
         function checkEmptyField(field, message) {
-            if (field == '') return message;
+            if (field.match(/^ *$/)) return `Het veld ${message} is vereist`; //check if field is empty or only contains spaces
             else return '';
         }
 
@@ -495,7 +496,6 @@
             const reg = /^[1-9][0-9]{3}$/; //postal code regex
             if (!postalcode.match(reg)) return 'De waarde van postcode moet tussen 1000 en 9999 liggen';
         }
-        
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
