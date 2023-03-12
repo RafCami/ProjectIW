@@ -361,7 +361,7 @@
                 </div>
                 <hr>
                 <div class="d-grid mb-3">
-                    <button type="button" class="btn btn-primary" onclick="Buttonclick()">Wave your magic wand</button>
+                    <button type="button" class="btn btn-primary" onclick="validateForm()">Wave your magic wand</button>
                 </div>
             </form>
         </div>
@@ -375,12 +375,102 @@
     </div>
 
     <script>
-        function Buttonclick() {
+        function validateForm() {
+            let errors = [];
+            let formFields = document.querySelectorAll('input, select'); //array of all html input fields
+            
+            //itterate over all form fields
+            for (var input of formFields) {
+                let error = '';
+                //check for empty fields
+                let message = ''; //variable for fieldname
+                switch (input.id) {
+                    case 'firstname':
+                        message = 'voornaam';
+                        break;
+                    case 'lastname':
+                        message = 'naam';
+                        break;
+                    case 'username':
+                        message = 'gebruikersnaam';
+                        break;
+                    case 'email':
+                        message = 'email';
+                        break;
+                    case 'password':
+                        message = 'wachtwoord';
+                        break;
+                    case 'passwordvalidate':
+                        message = 'herhaal wachtwoord';
+                        break;
+                    case 'address':
+                        message = 'adres';
+                        break;
+                    case 'country':
+                        message = 'land';
+                        break;
+                    case 'province':
+                        message = 'provincie';
+                        break;
+                    case 'postalcode':
+                        message = 'postcode';
+                        break;
+                    default:
+                        break;
+                }
+                //if message is filled, field has to be checked if empty
+                if (message) { error = checkEmptyField(input, message); }
+                if (error) {
+                    errors.push(error);
+                    continue; //skip to next field if field is empty
+                }
+
+                //value validation
+                switch (input.id) {
+                    case 'email':
+                        if (!validateEmail(input.value)) errors.push('E-mailaders is niet correct.');
+                        break;
+                    case 'password':
+                        if (input.value.length < 8) errors.push('Wachtwoord moet minstens 8 karakters lang zijn.');
+                        break;
+                    case 'passwordvalidate':
+                        if (document.querySelector('#password').value.length >= 8 && input.value != document.querySelector('#password').value) errors.push('Wachtwoorden komen niet overeen.');
+                        break;
+                    case 'agree':
+                        if (!input.checked) errors.push('Je moet akkoord gaan met de algemene voorwaarden.');
+                        break;
+                    case 'postalcode':
+                        let pcError = checkPC(input); 
+                        if (pcError) errors.push(pcError);
+                    case 'bankingapp':
+                    case 'wire':
+                    case 'visa':
+                    case 'paypal':
+                        if (input.checked) { validatePayment(input.value); }
+                        break;
+                    default:
+                        break;
+                }
+                
+
+
+                //tmp
+                let content = '<p>';
+                if (errors.length > 0) {
+                    errors.forEach(e => content += `${e}<br>`);
+
+                }
+                content += '</p>';
+                let response = document.querySelector('#response');
+                response.innerHTML = content;
+                response.classList.remove('invisible');
+            }
             
         }
 
         function checkEmptyField(field, message) {
-            
+            if (field.value.match(/^ *$/)) return `Het veld ${message} is vereist`; //check if field is empty or only contains spaces
+            else return '';
         }
 
         function validateEmail(email) {
@@ -392,20 +482,20 @@
         function validatePayment(payment) {
             //construct alert text
             let alertText;
-            if (payment) {
-                alertText = `Je betalingswijze is ${payment}`;
+            if (payment.value) {
+                alertText = `Je betalingswijze is ${payment.value}`;
             }
             else {
                 alertText = 'Je hebt geen betalingswijze gekozen';
             }
             //set payment div content
-            document.getElementById('responsePayment').getElementsByTagName('p')[0].innerHTML = alertText;
+            document.querySelector('#responsePayment').querySelector('p').innerHTML = alertText;
         }
 
         function checkPC(postalcode) {
             //check if postalcode is valid
             const reg = /^[1-9][0-9]{3}$/; //postal code regex
-            if (!postalcode.match(reg)) return 'De waarde van postcode moet tussen 1000 en 9999 liggen';
+            if (!postalcode.value.match(reg)) return 'De waarde van postcode moet tussen 1000 en 9999 liggen';
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

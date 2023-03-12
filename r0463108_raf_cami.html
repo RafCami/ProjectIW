@@ -361,7 +361,7 @@
                 </div>
                 <hr>
                 <div class="d-grid mb-3">
-                    <button type="button" class="btn btn-primary" onclick="Buttonclick()">Wave your magic wand</button>
+                    <button type="button" class="btn btn-primary" onclick="validateForm()">Wave your magic wand</button>
                 </div>
             </form>
         </div>
@@ -375,7 +375,7 @@
     </div>
 
     <script>
-        function Buttonclick() {
+        function validateForm() {
             //Get form data and create FormData (dictionary) object for easy data access;
             //https://developer.mozilla.org/en-US/docs/Web/API/FormData
             let registerForm = new FormData(document.getElementById('RegisterForm'));
