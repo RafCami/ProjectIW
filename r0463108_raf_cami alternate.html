@@ -366,7 +366,11 @@
             </form>
         </div>
         <div class="col-md mt-3">
-            <div id="response" class="invisible"></div>
+            <div id="response" class="invisible">
+                <h4></h4>
+                <!-- set white-space style for textcontent newlines in JS -->
+                <p style="white-space: pre;"></p>
+            </div>
             <div id="responsePayment" class="alert alert-primary invisible">
                 <h4>Betalingswijze</h4>
                 <p></p>
@@ -446,25 +450,35 @@
                     case 'wire':
                     case 'visa':
                     case 'paypal':
-                        if (input.checked) { validatePayment(input.value); }
+                        if (input.checked) { validatePayment(input); }
                         break;
                     default:
                         break;
                 }
                 
-
-
-                //tmp
-                let content = '<p>';
-                if (errors.length > 0) {
-                    errors.forEach(e => content += `${e}<br>`);
-
-                }
-                content += '</p>';
-                let response = document.querySelector('#response');
-                response.innerHTML = content;
-                response.classList.remove('invisible');
             }
+
+            //construct alert div
+            let response = document.querySelector('#response');
+            response.querySelector('p').textContent = ''; //Clear old errors
+            response.className = ''; //Clear classes
+            let classes = ['alert'];
+            //set alert div content
+            if (errors.length > 0) {
+                //alert content on errors
+                response.querySelector('h4').textContent = 'Yikes errors...';
+                errors.forEach(e => response.querySelector('p').textContent += `${e}\r\n`);
+                //alert classes on errors
+                classes.push('alert-danger');
+                document.querySelector('#responsePayment').classList.add('invisible'); //hide payment div
+            } else {
+                response.querySelector('h4').textContent = 'Goed gedaan!';
+                response.querySelector('p').textContent = 'Aww yeah, je werd geregistreerd.';
+                classes.push('alert-success');
+                document.getElementById('responsePayment').classList.remove('invisible'); //show payment div
+            }
+            //set alert div classes
+            classes.forEach(c => response.classList.add(c)); //Add every class
             
         }
 
@@ -489,7 +503,7 @@
                 alertText = 'Je hebt geen betalingswijze gekozen';
             }
             //set payment div content
-            document.querySelector('#responsePayment').querySelector('p').innerHTML = alertText;
+            document.querySelector('#responsePayment').querySelector('p').textContent = alertText;
         }
 
         function checkPC(postalcode) {
