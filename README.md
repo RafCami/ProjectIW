@@ -6,3 +6,4 @@ Q's:
 
 
 TODO:
+    -check html responsiveness
