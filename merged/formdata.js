@@ -98,7 +98,7 @@ function checkEmptyField(field, message) {
 function validateEmail(email) {
     const reg = /^[a-zA-Z0-9_][a-zA-Z0-9_\-\.]*@[a-zA-Z0-9][a-zA-Z0-9\-\.]*\.[a-zA-Z0-9\-\.]+/; //email regex
     //const reg = /.+@.+\..+/; //email must contain any number of characters, an '@', any number of characters, a '.', any number of characters 
-    return email.match(reg); //return if email matches
+    return reg.test(email); //return if email matches
 }
 
 function validatePayment(payment) {
