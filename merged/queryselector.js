@@ -2,7 +2,7 @@ function validateForm() {
     let errors = [];
     let formFields = document.querySelectorAll('input, select'); //array of all html input fields
     
-    //itterate over all form fields
+    //iterate over all form fields
     for (var input of formFields) {
         let error = '';
         //check for empty fields
@@ -109,7 +109,7 @@ function checkEmptyField(field, message) {
 function validateEmail(email) {
     const reg = /^[a-zA-Z0-9_][a-zA-Z0-9_\-\.]*@[a-zA-Z0-9][a-zA-Z0-9\-\.]*\.[a-zA-Z0-9\-\.]+/; //email regex
     //const reg = /.+@.+\..+/; //email must contain any number of characters, an '@', any number of characters, a '.', any number of characters 
-    return reg.test(email); //return if email matches
+    return reg.test(email); //return if email matches bool
 }
 
 function validatePayment(payment) {
@@ -128,5 +128,5 @@ function validatePayment(payment) {
 function checkPC(postalcode) {
     //check if postalcode is valid
     const reg = /^[1-9][0-9]{3}$/; //postal code regex
-    if (!postalcode.value.match(reg)) return 'De waarde van postcode moet tussen 1000 en 9999 liggen';
+    if (!reg.test(postalcode)) return 'De waarde van postcode moet tussen 1000 en 9999 liggen';
 }
