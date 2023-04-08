@@ -44,15 +44,8 @@ function validateForm() {
     response.classList.remove('invisible'); //show alert div
     response.classList.toggle('alert-danger', errors.length > 0);
     response.classList.toggle('alert-success', errors.length == 0);
-    let content;
-    if (errors.length > 0) {
-        //alert content on errors
-        content = `<h4>Yikes errors...</h4><p>${errors.join('<br>')}</p>`;
-    } else {
-        content = '<h4>Goed gedaan!</h4><p>Aww yeah, je werd geregistreerd.</p>';
-    }
+    response.innerHTML = (errors.length > 0) ? `<h4>Yikes errors...</h4><p>${errors.join('<br>')}</p>` : '<h4>Goed gedaan!</h4><p>Aww yeah, je werd geregistreerd.</p>';
     document.querySelector('#responsePayment').classList.toggle('invisible', errors.length > 0); //hide payment div if there are errors else show it
-    response.innerHTML = content; //Set content
 }
 
 function checkEmptyField(field, message) {
