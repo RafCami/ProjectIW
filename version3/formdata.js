@@ -55,7 +55,7 @@ function checkEmptyField(field, message) {
 }
 
 function validateEmail(email) {
-    const reg = /^[a-zA-Z0-9_][a-zA-Z0-9_\-\.]*@[a-zA-Z0-9][a-zA-Z0-9\-\.]*\.[a-zA-Z0-9\-\.]+/; //email regex
+    const reg = /^[a-zA-Z0-9_][a-zA-Z0-9_\-\.]*@[a-zA-Z0-9][a-zA-Z0-9\-\.]*(\.[a-zA-Z0-9\-]*[a-zA-Z0-9]+)+$/; //email regex
     return reg.test(email); //return if email matches
 }
 
