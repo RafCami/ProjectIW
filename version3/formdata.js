@@ -1,8 +1,8 @@
 function validateForm() {
     //Get form data and create FormData (dictionary) object for easy data access;
     //https://developer.mozilla.org/en-US/docs/Web/API/FormData
-    let registerForm = new FormData(document.getElementById('RegisterForm'));
-    let errors = [];
+    const registerForm = new FormData(document.getElementById('RegisterForm'));
+    const errors = [];
 
     //iterate over form entries
     for (var pair of registerForm) {
@@ -35,32 +35,32 @@ function validateForm() {
     if (!registerForm.has('agree')) errors.push('Je moet de algemene voorwaarden accepteren');
 
     //handle radio buttons
-    //check if payment method is chosen
-    //set payment div
     if (!validatePayment(registerForm.get('payment'))) errors.push('Je moet een betalingswijze kiezen');
 
     //construct alert div
-    let response = document.querySelector('#response');
+    const response = document.querySelector('#response');
     response.classList.remove('invisible'); //show alert div
+    //set alert class
     response.classList.toggle('alert-danger', errors.length > 0);
     response.classList.toggle('alert-success', errors.length == 0);
+    //set alert content
     response.innerHTML = (errors.length > 0) ? `<h4>Yikes errors...</h4><p>${errors.join('<br>')}</p>` : '<h4>Goed gedaan!</h4><p>Aww yeah, je werd geregistreerd.</p>';
     document.querySelector('#responsePayment').classList.toggle('invisible', errors.length > 0); //hide payment div if there are errors else show it
 }
 
 function checkEmptyField(field, message) {
-    let reg = /^ *$/;
+    const reg = /^ *$/;
     if (reg.test(field[1])) return (message) ? message : `Het veld ${field[0]} is vereist`; //check if field is empty or only contains spaces
     else return '';
 }
 
 function validateEmail(email) {
     const reg = /^[a-zA-Z0-9_][a-zA-Z0-9_\-\.]*@[a-zA-Z0-9][a-zA-Z0-9\-\.]*(\.[a-zA-Z0-9\-]*[a-zA-Z0-9]+)+$/; //email regex
-    return reg.test(email); //return if email matches
+    return reg.test(email); //return true if email matches
 }
 
 function validatePayment(payment) {
-    //set payment div content
+    //set payment div content depending if a payment method is chosen
     document.getElementById('responsePayment').getElementsByTagName('p')[0].innerHTML = (payment) ? `Je betalingswijze is ${payment}` : 'Je hebt geen betalingswijze gekozen';
     return payment;
 }
