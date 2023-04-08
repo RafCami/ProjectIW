@@ -72,21 +72,12 @@ function checkEmptyField(field, message) {
 
 function validateEmail(email) {
     const reg = /^[a-zA-Z0-9_][a-zA-Z0-9_\-\.]*@[a-zA-Z0-9][a-zA-Z0-9\-\.]*\.[a-zA-Z0-9\-\.]+/; //email regex
-    //const reg = /.+@.+\..+/; //email must contain any number of characters, an '@', any number of characters, a '.', any number of characters 
     return reg.test(email); //return if email matches
 }
 
 function validatePayment(payment) {
-    //construct alert text
-    let alertText;
-    if (payment) {
-        alertText = `Je betalingswijze is ${payment}`;
-    }
-    else {
-        alertText = 'Je hebt geen betalingswijze gekozen';
-    }
     //set payment div content
-    document.getElementById('responsePayment').getElementsByTagName('p')[0].innerHTML = alertText;
+    document.getElementById('responsePayment').getElementsByTagName('p')[0].innerHTML = (payment) ? `Je betalingswijze is ${payment}` : 'Je hebt geen betalingswijze gekozen';
 }
 
 function checkPC(postalcode) {
