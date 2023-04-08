@@ -36,8 +36,8 @@ function validateForm() {
 
     //handle radio buttons
     //check if payment method is chosen
-    if (registerForm.has('payment'))  validatePayment(registerForm.get('payment')); //set payment div
-    else errors.push('Je moet een betalingswijze kiezen');
+    //set payment div
+    if (!validatePayment(registerForm.get('payment'))) errors.push('Je moet een betalingswijze kiezen');
 
     //construct alert div
     let response = document.querySelector('#response');
@@ -51,8 +51,7 @@ function validateForm() {
     } else {
         content = '<h4>Goed gedaan!</h4><p>Aww yeah, je werd geregistreerd.</p>';
     }
-    document.querySelector('#responsePayment').classList.toggle('invisible', errors.length > 0);
-    //set alert div classes and content
+    document.querySelector('#responsePayment').classList.toggle('invisible', errors.length > 0); //hide payment div if there are errors else show it
     response.innerHTML = content; //Set content
 }
 
@@ -70,6 +69,7 @@ function validateEmail(email) {
 function validatePayment(payment) {
     //set payment div content
     document.getElementById('responsePayment').getElementsByTagName('p')[0].innerHTML = (payment) ? `Je betalingswijze is ${payment}` : 'Je hebt geen betalingswijze gekozen';
+    return payment;
 }
 
 function checkPC(postalcode) {
