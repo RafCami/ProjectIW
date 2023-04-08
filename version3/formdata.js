@@ -6,29 +6,28 @@ function validateForm() {
 
     //iterate over form entries
     for (var pair of registerForm) {
+        //check if field is empty
+        //checkboxes and radio buttons will be checked aswell, but they will only exists when not empty. So no need to catch them
         let checkResult = checkEmptyField(pair);
-        //check which field gets checked
-        switch (pair[0]) {
-            case 'postcode':
-                if (!checkResult) { 
-                    checkResult = checkPC(pair[1]); 
-                }
-                break;
-            case 'e-mail':
-                if (!checkResult) {
+        //check if field needs more validation, only needed if field is not empty
+        if (!checkResult) {
+            switch (pair[0]) {
+                case 'postcode':
+                    checkResult = checkPC(pair[1]);
+                    break;
+                case 'e-mail':
                     if (!validateEmail(pair[1])) checkResult = 'E-mailadres is niet correct';
-                }
-                break;
-            case 'wachtwoord':
-                if (!checkResult && pair[1].length <= 7) checkResult = 'Het wachtwoord moet minstens 8 karakters lang zijn'; //check for too short password
-                break;
-            case 'herhaal wachtwoord':
-                //password is long enough AND fields not equal
-                if (!checkResult && registerForm.get('wachtwoord').length >= 8 && pair[1] != registerForm.get('wachtwoord')) checkResult = 'Beide wachtwoord velden moeten gelijk zijn';
-                break;
+                    break;
+                case 'wachtwoord':
+                    if (pair[1].length <= 7) checkResult = 'Het wachtwoord moet minstens 8 karakters lang zijn'; //check for too short password
+                    break;
+                case 'herhaal wachtwoord':
+                    //password is long enough AND fields not equal
+                    if (registerForm.get('wachtwoord').length >= 8 && pair[1] != registerForm.get('wachtwoord')) checkResult = 'Beide wachtwoord velden moeten gelijk zijn';
+                    break;
+            }                   
         }
-        
-        //check if empty field
+        //add error, if there is one, to errors array
         if (checkResult) errors.push(checkResult);
     }
 
@@ -41,26 +40,19 @@ function validateForm() {
     else errors.push('Je moet een betalingswijze kiezen');
 
     //construct alert div
-    let content = '';
-    let classes = ['alert'];
+    let response = document.querySelector('#response');
+    response.classList.remove('invisible'); //show alert div
+    response.classList.toggle('alert-danger', errors.length > 0);
+    response.classList.toggle('alert-success', errors.length == 0);
+    let content;
     if (errors.length > 0) {
         //alert content on errors
-        content += '<h4>Yikes errors...</h4><p>';
-        errors.forEach(e => content += `${e}<br>`);                
-        content += '</p>';
-        //alert classes on errors
-        classes.push('alert-danger');
-        document.getElementById('responsePayment').classList.add('invisible'); //hide payment div
+        content = `<h4>Yikes errors...</h4><p>${errors.join('<br>')}</p>`;
     } else {
-        content += '<h4>Goed gedaan!</h4><p>';
-        content += 'Aww yeah, je werd geregistreerd.</p>';
-        classes.push('alert-success');
-        document.getElementById('responsePayment').classList.remove('invisible'); //show payment div
+        content = '<h4>Goed gedaan!</h4><p>Aww yeah, je werd geregistreerd.</p>';
     }
+    document.querySelector('#responsePayment').classList.toggle('invisible', errors.length > 0);
     //set alert div classes and content
-    let response = document.querySelector('#response');
-    response.className = ''; //Clear classes
-    classes.forEach(c => response.classList.add(c)); //Add every class
     response.innerHTML = content; //Set content
 }
 
